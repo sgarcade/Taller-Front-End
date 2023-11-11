@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Build app",
+      "setup": "sh checks/setup.sh",
+      "run": "sh checks/build.sh",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 200,
+      "points": 50
+    }
+  ]
+}
