@@ -15,20 +15,16 @@ const icon = (name) => (
 
 const navConfig = [
   {
-    title: 'Users',
+    title: 'Usuarios',
     path: '/dashboard/users',
     icon: <PeopleIcon />,
   },
   {
-    title: 'Test cases',
-    path: '/dashboard/test-cases',
-    icon: <BiotechIcon />,
-  },
-  {
-    title: 'Bugs',
-    path: '/dashboard/bugs',
-    icon: <BugReportIcon />,
-  },
+    title: 'Tareas',
+    path: '/dashboard/task',
+    icon: <PeopleIcon/>,
+
+  }
 ];
 
 export default navConfig;

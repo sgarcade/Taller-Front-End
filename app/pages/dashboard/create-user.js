@@ -1,9 +1,6 @@
-import { Inter } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from 'layouts/DashboardLayout';
-import { useState, useMemo, useEffect } from 'react';
-import PropTypes from 'prop-types';
-// @mui
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -20,45 +17,34 @@ export default function CreateUserPage() {
   const [isSubmitting, setSubmitting] = useState(false);
   const [isError, setError] = useState(false);
   const router = useRouter();
+
   const handleSubmit = async (event) => {
-    // Stop the form from submitting and refreshing the page.
     event.preventDefault();
     setSubmitting(true);
-    // Get data from the form.
+
     const data = {
-      // This is the object expected by the API
-      firstName: event.target.firstname.value,
-      lastName: event.target.lastname.value,
-      username: event.target.username.value,
-      password: 'secretpassword',
+      UserName: event.target.UserName.value,
       email: event.target.email.value,
+      Password: event.target.Password.value,
     };
 
-    // Send the data to the server in JSON format.
     const JSONdata = JSON.stringify(data);
 
-    // API endpoint where we send form data.
-    const endpoint = 'http://localhost:8080/api/v1/users';
+    const endpoint = 'http://localhost:8000/api/v1/usernew/';
 
-    // Form the request for sending data to the server.
     const options = {
-      // The method is POST because we are sending data.
       method: 'POST',
-      // Tell the server we're sending JSON.
       headers: {
         'Content-Type': 'application/json',
-        'Api-Token': 'THIS IS MY SECRET TOKEN', // Don't forget your secret token :)
+        'Api-Token': 'THIS IS MY SECRET TOKEN',
       },
-      // Body of the request is the JSON data we created above.
       body: JSONdata,
     };
 
-    // Send the form data to our forms API on Vercel and get a response.
     const response = await fetch(endpoint, options);
 
-    // Get the response data from server as JSON, if you receive the expected status code (200 or 201)
     if (response.status === 201) {
-      const result = response.status === 201 ? await response.json() : {};
+      const result = await response.json();
       console.log(`Response: ${JSON.stringify(result)}`);
       setUserData(result);
       router.push('/dashboard/users');
@@ -70,9 +56,7 @@ export default function CreateUserPage() {
 
   return (
     <DashboardLayout>
-      <main
-        className={`flex min-h-screen flex-col items-center justify-between p-24 `}
-      >
+      <main className={`flex min-h-screen flex-col items-center justify-between p-24 `}>
         <Box sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%', mb: 2 }}>
             <Grid container spacing={3}>
@@ -89,7 +73,7 @@ export default function CreateUserPage() {
                     id="tableTitle"
                     component="div"
                   >
-                    Create a new user
+                    Crear Usuario
                   </Typography>
                 </Stack>
               </Grid>
@@ -98,40 +82,13 @@ export default function CreateUserPage() {
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
                       <Stack spacing={1}>
-                        <InputLabel htmlFor="firstname">First Name*</InputLabel>
+                        <InputLabel htmlFor="UserName">Nombre Usuario*</InputLabel>
                         <OutlinedInput
-                          id="firstname"
-                          type="firstname"
-                          value={userData.firstName}
-                          name="firstname"
-                          placeholder="John"
-                          fullWidth
-                        />
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={1}>
-                        <InputLabel htmlFor="lastname">Last Name*</InputLabel>
-                        <OutlinedInput
-                          fullWidth
-                          id="lastname"
-                          type="lastname"
-                          value={userData.lastName}
-                          name="lastname"
-                          placeholder="Doe"
-                          inputProps={{}}
-                        />
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Stack spacing={1}>
-                        <InputLabel htmlFor="username">Username*</InputLabel>
-                        <OutlinedInput
-                          id="username"
-                          type="username"
-                          value={userData.username}
-                          name="username"
-                          placeholder="john.doe"
+                          id="UserName"
+                          type="TextField"
+                          value={userData.UserName}
+                          name="UserName"
+                          placeholder="Nombre"
                           fullWidth
                         />
                       </Stack>
@@ -150,6 +107,20 @@ export default function CreateUserPage() {
                         />
                       </Stack>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Stack spacing={1}>
+                        <InputLabel htmlFor="Password">Contraseña*</InputLabel>
+                        <OutlinedInput
+                          fullWidth
+                          id="Password"
+                          type="password"
+                          value={userData.Password}
+                          name="Password"
+                          placeholder="****"
+                          inputProps={{}}
+                        />
+                      </Stack>
+                    </Grid>
                     <Grid item xs={12}>
                       <Button
                         disableElevation
@@ -160,7 +131,7 @@ export default function CreateUserPage() {
                         variant="contained"
                         color="primary"
                       >
-                        Create User
+                        Crear Usuario
                       </Button>
                     </Grid>
                   </Grid>

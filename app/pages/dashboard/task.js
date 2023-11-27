@@ -67,7 +67,7 @@ function getComparator(order, orderBy) {
 }
 // ----------------------------------------------------------------------
 
-const pageTitle = 'Users';
+const pageTitle = 'Taks';
 
 const headCells = [
   {
@@ -317,12 +317,12 @@ export default function UsersPage() {
           >
             <Typography variant="h4" gutterBottom>
             </Typography>
-            <Link href="create-user">
+            <Link href="Create-Task">
             <Button
               variant="contained"
               startIcon={<Iconify icon="eva:plus-fill" />}
             >
-              Nueva Usuario
+              Nueva Tarea
             </Button>
             </Link>
           </Stack>
